@@ -1,0 +1,46 @@
+# ==============================================================================
+# Production Dockerfile for HITL-XGNN Backend API Service
+# ==============================================================================
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    API_HOST=0.0.0.0 \
+    API_PORT=8000
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Upgrade pip and install CPU-optimized PyTorch
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Install production dependencies
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
+COPY alembic.ini /app/alembic.ini
+COPY alembic/ /app/alembic/
+COPY configs/ /app/configs/
+COPY src/ /app/src/
+COPY docker/backend-entrypoint.sh /app/docker/backend-entrypoint.sh
+
+RUN chmod +x /app/docker/backend-entrypoint.sh
+
+# Expose backend port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=5 \
+    CMD curl -f http://localhost:8000/api/v1/health || exit 1
+
+ENTRYPOINT ["/app/docker/backend-entrypoint.sh"]

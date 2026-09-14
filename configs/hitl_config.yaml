@@ -1,0 +1,45 @@
+# Configuration for Module 7 — Human Analyst / HITL & Active Learning System
+
+triage:
+  decision_threshold: 0.5517  # Frozen validation threshold from Phase 4
+  risk_levels:
+    critical: 0.85
+    high: 0.70
+    medium: 0.40
+    low: 0.00
+  priority_weights:
+    uncertainty_weight: 0.45
+    fraud_risk_weight: 0.35
+    graph_diversity_weight: 0.20
+
+active_learning:
+  feedback_timesteps: [35, 39]  # t=35..39 strictly
+  test_timesteps: [40, 49]      # t=40..49 strictly untouched test partition
+  budgets:
+    - 0.05
+    - 0.10
+    - 0.20
+  strategies:
+    - "no_feedback"
+    - "random"
+    - "uncertainty"
+    - "entropy"
+    - "high_risk"
+    - "combined_active"
+  retraining:
+    epochs: 25
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    focal_gamma: 2.0
+    focal_alpha: 0.75
+
+review_protocol:
+  confidence_levels: [1, 2, 3, 4, 5]
+  valid_verdicts:
+    - "ILLICIT"
+    - "LICIT"
+    - "ESCALATED"
+    - "INCONCLUSIVE"
+  sources:
+    - "SIMULATED_ORACLE"
+    - "HUMAN_ANALYST"

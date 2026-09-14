@@ -1,0 +1,39 @@
+# Git and IDE
+.git
+.github
+.gitignore
+.vscode
+.idea
+*.swp
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Frontend artifacts
+src/module6_api/frontend/node_modules/
+src/module6_api/frontend/dist/
+src/module6_api/frontend/.vite/
+
+# Temporary / Scratch files
+scratch/
+tmp/
+*.log
+
+# Sensitive environment overrides
+.env.local
+.env.*.local
