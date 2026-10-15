@@ -51,3 +51,9 @@ scratch/
 
 # Docker local overrides
 docker-compose.override.yml
+
+# Academic reports and Word temporary files
+*.docx
+~$*.docx
+BCSE497J_Project1_Report_*.txt
+BCSE497J_Report_*.txt
