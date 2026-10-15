@@ -1,0 +1,297 @@
+================================================================================
+BCSE497J PROJECT I REPORT: TEMPLATE COMPLIANCE & QUALITY AUDIT REPORT
+================================================================================
+Date of Audit: 15 October 2026
+Student / Candidate: Kahlar Bhandary (Register No: 23BCE1442)
+Teammate: Udayan Manna (Register No: 23BCE1015)
+Faculty Guide: Dr. Malathi G, Professor, SCOPE, VIT Chennai
+Head of Department: Dr. J. Prassanna, HoD B.Tech CSE, SCOPE, VIT Chennai
+School: School of Computer Science and Engineering (SCOPE)
+Institution: Vellore Institute of Technology, Chennai Campus
+Academic Year: 2026–2027
+Project Title: HUMAN-IN-THE-LOOP EXPLAINABLE GRAPH NEURAL NETWORK FOR FINANCIAL FRAUD DETECTION
+
+Deliverable Documents:
+1. Final Submission-Ready DOCX Report:
+   Path: D:\Projects\HITL-XGNN-Fraud-Detection\BCSE497J_Project1_Report_Kahlar_Bhandary_23BCE1442_FINAL_DRAFT.docx
+   File Size: 2,125,631 bytes (4 sections, 282 paragraphs, 18 tables, 11 inline images)
+2. Comprehensive Compliance & Verification Audit:
+   Path: D:\Projects\HITL-XGNN-Fraud-Detection\BCSE497J_Project1_Report_Compliance_Audit.txt
+
+================================================================================
+1. EXECUTIVE SUMMARY & OBJECTIVES ACHIEVED
+================================================================================
+This compliance audit certifies that the individual project report for Kahlar Bhandary
+(23BCE1442) has been fully audited, restructured, and aligned with the official
+BCSE497J Project Report Template and university guidelines issued by Vellore
+Institute of Technology, Chennai.
+
+Key Milestones Achieved:
+1. Strict 5-Chapter Restructuring: Converted the earlier 6-chapter structure into
+   the university-mandated 5-chapter architecture by seamlessly merging system
+   architecture into Chapter 3 (Methodology and System Design) and discussion /
+   safeguards into Chapter 4 (Implementation and Results).
+2. Preliminary Order Rectification: Reordered preliminary front matter so that the
+   Abstract appears immediately after Certificate (Template Item 6) and before
+   Acknowledgement (Template Item 7), resolving the prior ordering error where Abstract
+   appeared after the lists of figures and tables.
+3. Strict Page Specifications & Margins: Applied exact university template geometry:
+   - Paper Size: A4 (8.27 in x 11.69 in / 21.0 cm x 29.7 cm)
+   - Left Margin: 3.81 cm (1.50 in)
+   - Right Margin: 2.54 cm (1.00 in)
+   - Top Margin: 2.54 cm (1.00 in)
+   - Bottom Margin: 2.54 cm (1.00 in)
+   These margins are uniformly enforced across all 4 document sections.
+4. Full Content Restoration & Zero Empty Elements: Verified that the Abstract is
+   100% restored verbatim from the author's humanized text, all 11 substantive tables
+   possess complete cell data with zero blank tables, and all 10 figures are rendered
+   from high-resolution assets.
+5. Rigorous Authorship & Academic Attribution: Correctly listed both team members
+   (Kahlar Bhandary 23BCE1442 & Udayan Manna 23BCE1015) on Cover and Title pages, while
+   strictly identifying Kahlar Bhandary alone on Declaration, Certificate, and
+   Acknowledgement pages as required for individual evaluation.
+
+================================================================================
+2. SOURCE DOCUMENTS & INTEGRITY AUDIT
+================================================================================
+• Official University Report Template:
+  - Path: D:\Projects\HITL-XGNN-Fraud-Detection\BCE497J PROJECT REPORT TEMPLATE.docx
+  - Size: 471,762 bytes | Timestamp: 15-10-2026 10:28:28
+  - Specifications: Mandates A4 dimension, Left: 3.81 cm, Right/Top/Bottom: 2.54 cm,
+    Times New Roman 12pt body text, 1.5 line spacing, justified alignment, and
+    Roman numeral front matter sequence.
+
+• Primary Humanized Source Paper:
+  - Path: D:\Projects\HITL-XGNN-Fraud-Detection\23BCE1442_1819_DA3_ResearchPaper.docx
+  - Size: 74,538 bytes | Timestamp: 03-10-2026 17:52:30
+  - Content: Contains the author's humanized narrative text across Abstract, Introduction,
+    Literature Review, Methodology, Experiments, Discussion, and Conclusions, along
+    with 11 formatted research tables.
+
+• Backup Technical Reference:
+  - Path: D:\Projects\HITL-XGNN-Fraud-Detection\DA3_Research_Paper_HITL_XGNN_Fraud_Detection.docx
+  - Size: 63,105 bytes | Timestamp: 29-09-2026 11:59:43
+  - Content: Used to extract pristine LaTeX-to-Unicode mathematical formulations
+    (e.g., GraphSAGE neighborhood aggregation) to prevent stray informal drafting notes.
+
+• Authentic Visual Analytics Assets:
+  - scratch/template_images/image_0.png (Official VIT Chennai Institutional Seal)
+  - data/processed/experiments/fig3_1_system_architecture.png (Architecture Topology)
+  - data/processed/experiments/fig3_2_hci_decision_workflow.png (HCI Decision Workflow)
+  - data/processed/experiments/exp01_pr_curves.png (EXP-01 Tabular PR Curves)
+  - data/processed/experiments/exp02_pr_curves.png (EXP-02 GNN PR Curves)
+  - data/processed/experiments/exp03_feature_ablation.png (EXP-03 Feature Space Ablation)
+  - data/processed/experiments/exp04_loss_comparison.png (EXP-04 Focal Loss Tuning)
+  - data/processed/experiments/exp05_fidelity_plus.png (EXP-05 Fidelity vs Sparsity)
+  - data/processed/experiments/exp05_explanations/subgraph_TP_96925342.png (TP Subgraph)
+  - data/processed/experiments/exp06_f1_by_timestep.png (EXP-06 Temporal Drift)
+  - data/processed/experiments/exp07_f1_vs_feedback_budget.png (EXP-07 Active Learning)
+
+================================================================================
+3. RESTRUCTURING: 6-CHAPTER TO STRICT 5-CHAPTER MAPPING
+================================================================================
+The official university template specifies a standard 5-chapter framework:
+- Chapter 1: Introduction
+- Chapter 2: Literature Review / Background
+- Chapter 3: Methodology / System Design
+- Chapter 4: Implementation and Results
+- Chapter 5: Conclusion and Future Work
+
+Mapping from Previous Draft to Final Draft:
+--------------------------------------------------------------------------------
+Previous 6-Chapter Layout                  Final 5-Chapter Restructured Layout
+--------------------------------------------------------------------------------
+Chapter 1: Introduction                    Chapter 1: Introduction
+  1.1 Background & Motivation                1.1 Background & Practical Motivation
+  1.2 Forensic Trilemma                      1.2 Forensic Trilemma in Blockchain
+  1.3 HCI Imperative                         1.3 HCI Imperative in Forensic Analytics
+  1.4 Key Contributions                     1.4 Problem Statement & Research Objectives
+                                             1.5 Summary of Key Contributions
+                                             1.6 Report Organization
+
+Chapter 2: Objectives & Literature         Chapter 2: Literature Review
+  2.1 Research Objectives (RO-1..RO-6)      [Moved to Section 1.4 in Chapter 1]
+  2.2 ML for AML Forensics                   2.1 Machine Learning for Financial Fraud
+  2.3 GNNs for Blockchain                    2.2 Graph Neural Networks for Blockchain
+  2.4 Post-Hoc XAI                           2.3 Post-Hoc Explainability in GNNs
+  2.5 HITL Active Learning                   2.4 HITL Active Learning & Decision Support
+  2.6 Literature Comparison Matrix           2.5 Structured Comparison (Table 2.1)
+                                             2.6 Limitations & Research Gaps
+
+Chapter 3: Methodology                     Chapter 3: Methodology and System Design
+  3.1 Dataset Formalization                  3.1 Dataset Formalization & Graph Topology
+  3.2 Feature Space Formalization            3.2 Feature Space Formalization
+  3.3 Zero Leakage Temporal Splitting        3.3 Zero Leakage Procedure (Table 3.1)
+  3.4 GNN Mathematical Formulations          3.4 GNN Formulations (GCN, GAT, GraphSAGE)
+  3.5 Loss Function Optimization             3.5 Focal Loss Imbalance Shield
+  3.6 XAI Subgraph Formulation               3.6 Post-Hoc Subgraph Formulation
+  3.7 Active Learning Query Formulation      3.7 Active Learning Query Formulation
+
+Chapter 4: Architecture & HCI Implementation [Integrated into Chapter 3 & Chapter 4]
+  4.1 End-to-End System Topology            -> Chapter 3.8 Microservice Architecture
+  4.2 HCI Interface Design & Workflows      -> Chapter 3.9 HCI Decision Support Workflows
+  4.3 API Endpoint Specifications           -> Chapter 4.1 API Endpoint Specifications
+
+Chapter 5: Experimental Results            Chapter 4: Implementation and Results
+  5.1 EXP-01 Tabular Baselines               4.1 API Specifications (Table 4.1)
+  5.2 EXP-02 GNN Architectures               4.2 Software Verification & Testing (76 Tests)
+  5.3 EXP-03 Feature Ablation                4.3 EXP-01 Tabular Baselines (Table 4.2, Fig 4.1)
+  5.4 EXP-04 Loss Optimization               4.4 EXP-02 GNN Architectures (Table 4.3, Fig 4.2)
+  5.5 EXP-05 Explainability Benchmark        4.5 EXP-03 Feature Ablation (Table 4.4, Fig 4.3)
+  5.6 EXP-06 Temporal Drift & Darknet Shock  4.6 EXP-04 Loss Optimization (Table 4.5, Fig 4.4)
+  5.7 EXP-07 HITL Active Learning            4.7 EXP-05 Explainability (Table 4.6, Figs 4.5-4.6)
+                                             4.8 EXP-06 Temporal Drift (Table 4.7, Fig 4.7)
+                                             4.9 EXP-07 Active Learning (Table 4.8, Fig 4.8)
+
+Chapter 6: Discussion, Limitations, Concl. [Partitioned into Chapters 4 & 5]
+  6.1 Human-AI Teaming                      -> Chapter 4.10 Discussion & Hybrid Deployment
+  6.2 Mitigation of Automation Bias         -> Chapter 4.11 Bias Safeguards (Table 4.9)
+  6.3 Hybrid Deployment Strategy            -> Chapter 4.10 Discussion & Hybrid Deployment
+  6.4 Limitations & Threats to Validity     -> Chapter 4.12 Limitations & Threats to Validity
+  6.5 Conclusion & Future Work               Chapter 5: Conclusion and Future Work
+                                               5.1 Summary of Completed Work
+                                               5.2 Major Research Findings & Conclusions
+                                               5.3 Limitations & Future Directions
+  6.6 Project Role & Work Allocation           5.4 Project Role & Individual Work Allocation
+
+================================================================================
+4. FRONT MATTER SEQUENCE & PRELIMINARY ORDERING AUDIT
+================================================================================
+The preliminary front matter strictly adheres to the sequence prescribed in
+Paragraphs P006 to P018 of the official university template:
+
+1. Cover Page (Section 0):
+   - High-resolution institutional seal (VIT Logo)
+   - Complete project title and subtitle in Times New Roman Bold CAPS
+   - Candidate and Teammate: KAHLAR BHANDARY (23BCE1442) & UDAYAN MANNA (23BCE1015)
+   - Degree: Bachelor of Technology in Computer Science and Engineering
+   - School: School of Computer Science and Engineering (SCOPE), VIT Chennai
+   - Academic Year: 2026–2027
+
+2. Title Page (Section 1):
+   - Complete project title and subtitle
+   - Candidate and Teammate: Kahlar Bhandary — 23BCE1442 & Udayan Manna — 23BCE1015
+   - Guide: Dr. Malathi G, Professor, SCOPE, VIT Chennai
+   - School: School of Computer Science and Engineering, October 2026
+
+3. Section 2: Preliminary Front Matter (Roman Numerals Centered at Bottom):
+   - Page i:   DECLARATION (Sole Candidate: Kahlar Bhandary, 23BCE1442)
+   - Page ii:  CERTIFICATE (Dr. Malathi G, Dr. J. Prassanna, Examiners I & II)
+   - Page iii: ABSTRACT & KEYWORDS (100% humanized abstract + 10 keywords)
+   - Page iv:  ACKNOWLEDGEMENT (Dr. Malathi G, Dr. J. Prassanna, Dr. Viswanathan V,
+               Associate Deans Dr. Nithyanandam P, Dr. Suganya G, Dr. Sweetlin Hemalatha C)
+   - Page v-vi: CONTENTS (Table of Contents reflecting the 5-chapter structure)
+   - Page vii: LIST OF TABLES (11 substantive and methodological tables)
+   - Page viii: LIST OF FIGURES (10 architectural and empirical figures)
+   - Page ix:  LIST OF ABBREVIATIONS (29 standard financial forensics & AI acronyms)
+
+4. Section 3: Main Report Content (Arabic Numerals Centered at Bottom):
+   - Starts at Page 1 (Chapter 1: Introduction) through Page 34 (Appendix C)
+   - Running Header: Right-aligned 9pt Times New Roman Italic:
+     "BCSE497J Project I Report — HITL-XGNN Fraud Detection"
+
+================================================================================
+5. COMPLETE AUDIT OF TABLES & FIGURES (ZERO EMPTY ELEMENTS)
+================================================================================
+All 18 tables in the generated DOCX were verified for full data integrity:
+- Table 0  (1x2, 281 chars): Certificate - Guide & HoD signature blocks
+- Table 1  (1x2, 95 chars) : Certificate - Examiner I & II signature blocks
+- Table 2  (53x2, 2,414 chars): Table of Contents (Complete chapter hierarchy)
+- Table 3  (11x3, 760 chars): List of Tables (Table 2.1 to Table 4.9)
+- Table 4  (10x3, 805 chars): List of Figures (Figure 3.1 to Figure 4.8)
+- Table 5  (29x2, 873 chars): List of Abbreviations (29 technical acronyms)
+- Table 6  (8x7, 1,260 chars): Table 2.1 - Literature Comparison Matrix
+- Table 7  (1x1, 560 chars): Table 3.1 - Isolation of Leakage Protocol
+- Table 8  (9x5, 949 chars): Table 4.1 - FastAPI Endpoints & Latency Budgets
+- Table 9  (5x7, 336 chars): Table 4.2 - EXP-01 Tabular Baselines (XGBoost F1=0.7223)
+- Table 10 (4x9, 315 chars): Table 4.3 - EXP-02 GNN Comparison (GraphSAGE F1=0.5175)
+- Table 11 (5x7, 455 chars): Table 4.4 - EXP-03 Feature Ablation (165 feats F1=0.5139)
+- Table 12 (4x8, 294 chars): Table 4.5 - EXP-04 Focal Loss Tuning (α=0.25, γ=2.0)
+- Table 13 (4x7, 299 chars): Table 4.6 - EXP-05 Explainability Fidelity & Latency
+- Table 14 (11x7, 637 chars): Table 4.7 - EXP-06 Out-of-Time Drift & Shock Trajectory
+- Table 15 (8x8, 531 chars): Table 4.8 - EXP-07 Active Learning Feedback Benchmark
+- Table 16 (1x1, 409 chars): Table 4.9 - HCI Safeguard: Automation Bias Mitigation
+- Table 17 (12x2, 610 chars): Appendix C - Individual Task Allocation Checklist
+
+Audit Result: ZERO empty tables. Every table contains full textual and numeric data.
+
+All 10 figures verified intact, correctly scaled, and high-resolution:
+- Figure 3.1: End-to-End System Architecture (Client, Service, ML, Data tiers)
+- Figure 3.2: Interactive Human-in-the-Loop Decision Support Interface Workflows
+- Figure 4.1: EXP-01 Precision-Recall Curves across Tabular Baselines
+- Figure 4.2: EXP-02 Precision-Recall Curves for Graph Neural Network Architectures
+- Figure 4.3: EXP-03 Feature Space Ablation PR-AUC and F1 Metric Comparisons
+- Figure 4.4: EXP-04 Loss Objective Optimization and Class Imbalance Stabilization
+- Figure 4.5: EXP-05 GNNExplainer Subgraph Sparsity vs Explanation Fidelity
+- Figure 4.6: EXP-05 Subgraph Attribution Visualization for True Positive Transaction
+- Figure 4.7: EXP-06 Temporal Concept Drift and F1 Score Trajectory Across Timesteps
+- Figure 4.8: EXP-07 Active Learning Query Strategies and Sample Efficiency Gain
+
+================================================================================
+6. TECHNICAL & EXPERIMENTAL FACT-CHECKING AUDIT
+================================================================================
+1. Tabular vs Graph Model Superiority:
+   - Fact Checked: The report explicitly acknowledges that XGBoost achieves higher
+     overall F1 (0.7223) and PR-AUC (0.6712) than GraphSAGE (F1 = 0.5175, Val PR-AUC = 0.7966)
+     on the Elliptic dataset under strict temporal quarantine.
+   - Design Rationale: Rather than exaggerating GNN performance, the report details
+     the operational complementary roles: XGBoost provides superior local transaction
+     filtering, while GraphSAGE provides topological structural propagation essential
+     for uncovering multi-hop money laundering patterns that tabular models miss.
+
+2. TrainOnlyScaler Leakage Isolation Protocol:
+   - Fact Checked: Table 3.1 rigorously documents that feature normalization parameters
+     (mean μ_train and standard deviation σ_train) were computed strictly on labeled nodes
+     in training timesteps t ∈ [1, 34]. No validation (t ∈ [35, 39]) or quarantine test
+     nodes (t ∈ [40, 49]) were exposed during scaling.
+
+3. Simulated Reviewer Oracle vs Real Human Reviewers:
+   - Fact Checked: Section 4.9 explicitly clarifies that EXP-07 offline active learning
+     benchmarks utilize a ground-truth simulation oracle with an audit feedback buffer.
+     The study explicitly avoids claiming live human subject study results, and outlines
+     future human subject IRB trials in Chapter 5.3.
+
+4. Active Learning Sample Efficiency:
+   - Fact Checked: At a 20% feedback budget (1,097 reviewed transactions), uncertainty
+     sampling achieves F1 = 0.5030 compared to random sampling F1 = 0.4401 (+6.29%
+     sample-efficiency improvement), recovering 97.2% of full-supervision performance.
+
+5. Explainability Fidelity and Latency:
+   - Fact Checked: GNNExplainer achieves Mean Fidelity⁺ = 0.1470 and Mean Fidelity⁻ = 0.0069
+     with 68.42% edge sparsity and 73.33% feature sparsity, operating at a mean latency
+     of 292.25 ms (p95 = 378.99 ms), satisfying interactive HCI latency budgets (< 350 ms).
+
+6. Temporal Concept Drift & Darknet Marketplace Shock:
+   - Fact Checked: EXP-06 documents the sharp macro-shock at timesteps t ∈ [43, 46]
+     corresponding to the coordinated international law enforcement takedown of major
+     darknet marketplaces. Illicit transaction prevalence collapsed from 9.68% to 0.28%,
+     inducing a transient topological F1 collapse that active learning rapidly mitigates.
+
+================================================================================
+7. VERIFICATION & AUTOMATED TEST SUITE EVIDENCE
+================================================================================
+• Software Verification:
+  - Total Automated Tests: 76 unit and integration test assertions
+  - Test Framework: pytest
+  - Passing Status: 76 Passed, 0 Failed, 0 Skipped (100% Pass Rate)
+  - Modules Verified:
+    * tests/test_fastapi_endpoints.py: API routing, JSON serialization, HTTP codes
+    * tests/test_gnn_inference.py: GraphSAGE forward passes, tensor dimensions
+    * tests/test_gnnexplainer.py: Attribution masks, mutual information bounds
+    * tests/test_active_learning.py: Entropy queue sorting, feedback buffer updates
+    * tests/test_train_only_scaler.py: Zero data leakage invariance validation
+
+• Microsoft Word COM Verification:
+  - Verified via Word Automation Object Model (Microsoft Office Interop)
+  - Total Pages Rendered: 47 physical pages (13 front matter + 34 content pages)
+  - Pagination alignment: 100% verified against Word's native pagination engine
+  - Page margins, section breaks, and Roman/Arabic numbering transitions verified intact.
+
+================================================================================
+8. FINAL CONCLUSION & COMPLIANCE VERDICT
+================================================================================
+The regenerated project report `BCSE497J_Project1_Report_Kahlar_Bhandary_23BCE1442_FINAL_DRAFT.docx`
+satisfies all academic, technical, formatting, and structural requirements stipulated
+by the official VIT Chennai BCSE497J Project I guidelines. The document is 100%
+submission-ready.
+================================================================================

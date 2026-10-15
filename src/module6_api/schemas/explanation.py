@@ -26,6 +26,35 @@ class EdgeAttributionItem(BaseModel):
     rank: int
 
 
+class FidelityBenchmarkMethod(BaseModel):
+    """Aggregate fidelity benchmark metrics for an explainer method."""
+    mean_fidelity_plus: float
+    mean_fidelity_minus: float
+    median_fidelity_plus: Optional[float] = None
+    median_fidelity_minus: Optional[float] = None
+    std_fidelity_plus: Optional[float] = None
+    std_fidelity_minus: Optional[float] = None
+
+
+class LatencyProfile(BaseModel):
+    """Attribution latency performance profile."""
+    num_samples: int
+    mean_latency_ms: float
+    median_latency_ms: float
+    p95_latency_ms: float
+    min_latency_ms: float
+    max_latency_ms: float
+    total_duration_seconds: float
+
+
+class FidelityBenchmarkSummaryResponse(BaseModel):
+    """Canonical EXP-05 comparative benchmark results."""
+    overall_fidelity: Dict[str, Dict[str, float]]
+    category_fidelity: Optional[Dict[str, Dict[str, Any]]] = None
+    regime_fidelity: Optional[Dict[str, Dict[str, float]]] = None
+    latency_profile: Optional[Dict[str, Any]] = None
+
+
 class ExplanationResponse(BaseModel):
     """Structured XAI explanation response payload."""
     tx_id: str
@@ -46,3 +75,4 @@ class ExplanationResponse(BaseModel):
     top_features: List[FeatureAttributionItem]
     top_edges: List[EdgeAttributionItem]
     feature_summary: Dict[str, Any]
+    benchmark_summary: Optional[Dict[str, Any]] = None

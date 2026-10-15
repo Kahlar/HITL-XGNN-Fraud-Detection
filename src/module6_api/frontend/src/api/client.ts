@@ -7,9 +7,13 @@ import {
   ExplanationResponse,
   FeedbackResponse,
   FeedbackSubmissionRequest,
+  FidelityBenchmarkSummaryResponse,
+  GroupEvaluationResponse,
   HealthResponse,
+  ModelValidationResponse,
   PaginatedResponse,
   SubgraphResponse,
+  ThresholdPolicyResponse,
   TransactionDetailResponse,
   TransactionResponse,
   TriageQueueResponse,
@@ -115,6 +119,10 @@ export async function getTransactionExplanation(txId: string, timestep?: number)
   return request<ExplanationResponse>(`/explain/${encodeURIComponent(txId)}${query}`);
 }
 
+export async function getFidelityBenchmark(): Promise<FidelityBenchmarkSummaryResponse> {
+  return request<FidelityBenchmarkSummaryResponse>('/explain/benchmark/summary');
+}
+
 // 5. Human-in-the-Loop
 export async function submitAnalystFeedback(payload: FeedbackSubmissionRequest): Promise<FeedbackResponse> {
   return request<FeedbackResponse>('/hitl/feedback', {
@@ -141,7 +149,33 @@ export async function getTriageQueue(params: TriageQueueParams = {}): Promise<Tr
   return request<TriageQueueResponse>(`/hitl/queue${queryString}`);
 }
 
-// 6. Analytics Telemetry
+// 6. Analytics Telemetry & Group Metrics
 export async function getAnalyticsMetrics(): Promise<AnalyticsMetricsResponse> {
   return request<AnalyticsMetricsResponse>('/analytics/metrics');
+}
+
+export interface GroupEvaluationParams {
+  scope?: string;
+  timestep?: number;
+  tx_ids?: string[];
+}
+
+export async function getGroupEvaluationMetrics(params: GroupEvaluationParams = {}): Promise<GroupEvaluationResponse> {
+  return request<GroupEvaluationResponse>('/analytics/evaluation-metrics', {
+    method: 'POST',
+    body: JSON.stringify({
+      scope: params.scope || 'timestep',
+      timestep: params.timestep,
+      tx_ids: params.tx_ids,
+    }),
+  });
+}
+
+// 7. Model Policy & Validation Telemetry
+export async function getThresholdPolicy(): Promise<ThresholdPolicyResponse> {
+  return request<ThresholdPolicyResponse>('/models/threshold');
+}
+
+export async function getModelValidationMethodology(): Promise<ModelValidationResponse> {
+  return request<ModelValidationResponse>('/models/validation');
 }

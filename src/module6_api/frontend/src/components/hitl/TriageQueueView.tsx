@@ -44,6 +44,16 @@ export const TriageQueueView: React.FC<TriageQueueViewProps> = ({ onNavigateTab 
     setSuccessToast(
       `Successfully recorded verdict '${feedback.verdict}' by ${feedback.analyst_id} for transaction ${feedback.tx_id}.`
     );
+    // Optimistically remove reviewed item from current view
+    setQueueData((prev) => {
+      if (!prev) return prev;
+      const nextItems = prev.items.filter((item) => item.tx_id !== feedback.tx_id);
+      return {
+        ...prev,
+        items: nextItems,
+        total: Math.max(0, prev.total - 1),
+      };
+    });
     fetchQueue();
     setTimeout(() => setSuccessToast(null), 6000);
   };

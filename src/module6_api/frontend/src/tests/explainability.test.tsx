@@ -60,7 +60,16 @@ describe('Explainability Panel Component', () => {
 
     await waitFor(() => {
       expect(screen.getByText('tx_expl_target')).toBeInTheDocument();
-      expect(screen.getByText('+0.2845')).toBeInTheDocument(); // Fidelity+
+      expect(screen.getByText('+0.2845')).toBeInTheDocument(); // Instance Fidelity+
+      expect(screen.getByText('+0.0120')).toBeInTheDocument(); // Instance Fidelity-
+      expect(screen.getByText('EXP-05 Quantitative Faithfulness & Latency Benchmark Comparison')).toBeInTheDocument();
+      expect(screen.getByText('GNNExplainer (Active Engine)')).toBeInTheDocument();
+      expect(screen.getByText('+0.1470')).toBeInTheDocument(); // Benchmark GNNExplainer Fid+
+      expect(screen.getByText('+0.0069')).toBeInTheDocument(); // Benchmark GNNExplainer Fid-
+      expect(screen.getByText('GAT Attention Coefficients')).toBeInTheDocument();
+      expect(screen.getByText('+0.1069')).toBeInTheDocument(); // Benchmark GAT Fid+
+      expect(screen.getByText('+0.0141')).toBeInTheDocument(); // Benchmark GAT Fid-
+      expect(screen.getByText('Random Baseline')).toBeInTheDocument();
       expect(screen.getByText('feat_12_out_trans_vol_std')).toBeInTheDocument();
       expect(screen.getByText('245.8 ms')).toBeInTheDocument();
     });

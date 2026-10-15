@@ -46,7 +46,9 @@ class TransactionRepository(BaseRepository[Transaction]):
         triage_status: Optional[str] = None,
         search: Optional[str] = None,
     ) -> list:
-        filters = [Transaction.priority_score >= min_priority]
+        filters = []
+        if min_priority > 0.0:
+            filters.append(Transaction.priority_score >= min_priority)
 
         if timestep is not None:
             filters.append(Transaction.timestep == timestep)
@@ -81,9 +83,11 @@ class TransactionRepository(BaseRepository[Transaction]):
             search=search,
         )
 
+        query = select(Transaction)
+        if filters:
+            query = query.where(and_(*filters))
         query = (
-            select(Transaction)
-            .where(and_(*filters))
+            query
             .order_by(Transaction.priority_score.desc().nullslast())
             .limit(limit)
             .offset(offset)
@@ -109,9 +113,22 @@ class TransactionRepository(BaseRepository[Transaction]):
             triage_status=triage_status,
             search=search,
         )
-        query = select(func.count()).select_from(Transaction).where(and_(*filters))
+        query = select(func.count()).select_from(Transaction)
+        if filters:
+            query = query.where(and_(*filters))
         result = await session.execute(query)
         return int(result.scalar_one())
+
+    async def get_reviewed_tx_ids(self, session: AsyncSession) -> Set[str]:
+        """Returns a set of canonical transaction IDs that have already been reviewed or escalated."""
+        query = select(Transaction.tx_id).where(
+            or_(
+                Transaction.triage_status.in_(["REVIEWED", "ESCALATED"]),
+                Transaction.is_triaged == True,
+            )
+        )
+        result = await session.execute(query)
+        return set(result.scalars().all())
 
     async def get_subgraph_edges(
         self,

@@ -16,6 +16,7 @@ from src.module6_api.routers import (
     graph_router,
     health_router,
     hitl_router,
+    models_router,
     transactions_router,
 )
 from src.module6_api.schemas.common import APIErrorResponse
@@ -119,6 +120,7 @@ def create_app() -> FastAPI:
     app.include_router(explain_router, prefix=api_prefix)
     app.include_router(hitl_router, prefix=api_prefix)
     app.include_router(analytics_router, prefix=api_prefix)
+    app.include_router(models_router, prefix=api_prefix)
 
     return app
 

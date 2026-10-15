@@ -2,14 +2,14 @@ import React from 'react';
 
 interface BadgeProps {
   type: 'risk' | 'status' | 'label' | 'custom';
-  value: string;
+  value?: string | null;
   className?: string;
 }
 
 export const Badge: React.FC<BadgeProps> = ({ type, value, className = '' }) => {
   let badgeClass = 'badge-queued';
 
-  const valUpper = value.toUpperCase();
+  const valUpper = (value || '').toUpperCase();
 
   if (valUpper === 'CRITICAL' || valUpper === 'ILLICIT') {
     badgeClass = 'badge-critical';
@@ -27,7 +27,7 @@ export const Badge: React.FC<BadgeProps> = ({ type, value, className = '' }) => 
 
   return (
     <span className={`badge ${badgeClass} ${className}`}>
-      {value}
+      {value || '-'}
     </span>
   );
 };

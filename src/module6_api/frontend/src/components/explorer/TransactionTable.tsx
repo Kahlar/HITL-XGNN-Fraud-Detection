@@ -1,5 +1,5 @@
 import React from 'react';
-import { Network, HelpCircle, ShieldAlert, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Network, HelpCircle, ShieldAlert, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { TransactionResponse } from '../../types/api';
 import { Badge } from '../common/Badge';
 
@@ -13,6 +13,7 @@ interface TransactionTableProps {
   onSelectTx: (txId: string) => void;
   onNavigateTab: (tab: any, txId: string) => void;
   onOpenReviewModal?: (tx: TransactionResponse) => void;
+  onInspectTx?: (tx: TransactionResponse) => void;
 }
 
 export const TransactionTable: React.FC<TransactionTableProps> = ({
@@ -25,6 +26,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
   onSelectTx,
   onNavigateTab,
   onOpenReviewModal,
+  onInspectTx,
 }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -44,14 +46,15 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
           </thead>
           <tbody>
             {transactions.map((tx) => {
-              const prob = tx.predicted_prob !== undefined ? tx.predicted_prob : 0.0;
-              const probPercent = (prob * 100).toFixed(1);
+              const prob = tx.predicted_prob != null ? tx.predicted_prob : null;
+              const probPercent = prob != null ? (prob * 100).toFixed(1) : '0.0';
               return (
                 <tr key={tx.tx_id}>
                   <td
                     className="font-mono"
                     style={{ color: '#38bdf8', fontWeight: 600, cursor: 'pointer' }}
-                    onClick={() => onSelectTx(tx.tx_id)}
+                    onClick={() => (onInspectTx ? onInspectTx(tx) : onSelectTx(tx.tx_id))}
+                    title="Click to inspect prediction and evaluation details"
                   >
                     {tx.tx_id}
                   </td>
@@ -59,52 +62,66 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                     <span style={{ color: '#94a3b8' }}>TS #{tx.timestep}</span>
                   </td>
                   <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div
-                        style={{
-                          width: '48px',
-                          height: '6px',
-                          backgroundColor: '#1e293b',
-                          borderRadius: '3px',
-                          overflow: 'hidden',
-                        }}
-                      >
+                    {prob != null ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div
                           style={{
-                            width: `${probPercent}%`,
-                            height: '100%',
-                            backgroundColor:
-                              prob >= 0.85
-                                ? '#ef4444'
-                                : prob >= 0.70
-                                ? '#f97316'
-                                : prob >= 0.40
-                                ? '#f59e0b'
-                                : '#10b981',
+                            width: '48px',
+                            height: '6px',
+                            backgroundColor: '#1e293b',
+                            borderRadius: '3px',
+                            overflow: 'hidden',
                           }}
-                        />
+                        >
+                          <div
+                            style={{
+                              width: `${probPercent}%`,
+                              height: '100%',
+                              backgroundColor:
+                                prob >= 0.85
+                                  ? '#ef4444'
+                                  : prob >= 0.70
+                                  ? '#f97316'
+                                  : prob >= 0.40
+                                  ? '#f59e0b'
+                                  : '#10b981',
+                            }}
+                          />
+                        </div>
+                        <span style={{ fontWeight: 600 }}>{prob.toFixed(4)}</span>
                       </div>
-                      <span style={{ fontWeight: 600 }}>{prob.toFixed(4)}</span>
-                    </div>
+                    ) : (
+                      <span style={{ color: '#64748b' }}>-</span>
+                    )}
                   </td>
                   <td>
                     <Badge type="risk" value={tx.risk_level || 'LOW'} />
                   </td>
                   <td>
                     <span style={{ color: '#cbd5e1' }}>
-                      {tx.uncertainty_score !== undefined ? tx.uncertainty_score.toFixed(3) : '-'}
+                      {tx.uncertainty_score != null ? tx.uncertainty_score.toFixed(3) : '-'}
                     </span>
                   </td>
                   <td>
                     <span style={{ fontWeight: 600, color: '#f8fafc' }}>
-                      {tx.priority_score !== undefined ? `${(tx.priority_score * 100).toFixed(1)}%` : '-'}
+                      {tx.priority_score != null ? `${(tx.priority_score * 100).toFixed(1)}%` : '-'}
                     </span>
                   </td>
                   <td>
-                    <Badge type="status" value={tx.triage_status} />
+                    <Badge type="status" value={tx.triage_status || 'QUEUED'} />
                   </td>
                   <td style={{ textAlign: 'right' }}>
                     <div style={{ display: 'inline-flex', gap: '6px' }}>
+                      {onInspectTx && (
+                        <button
+                          onClick={() => onInspectTx(tx)}
+                          className="btn btn-secondary"
+                          style={{ padding: '4px 8px', fontSize: '0.75rem', backgroundColor: '#1e293b' }}
+                          title="Inspect Prediction Details & Evaluation"
+                        >
+                          <Eye size={13} /> Inspect
+                        </button>
+                      )}
                       <button
                         onClick={() => onNavigateTab('graph', tx.tx_id)}
                         className="btn btn-secondary"

@@ -1,0 +1,223 @@
+================================================================================
+BCSE497J PROJECT I REPORT: REPAIR AND COMPLETION AUDIT REPORT
+================================================================================
+Date of Verification: 15 October 2026
+Author / Student: Kahlar Bhandary (Register No: 23BCE1442)
+Teammate: Udayan Manna (Register No: 23BCE1015)
+Project Guide: Dr. Malathi G, Professor, SCOPE, VIT Chennai
+Course Code & Title: BCSE497J Project I
+Institution: Vellore Institute of Technology, Chennai
+School: School of Computer Science and Engineering (SCOPE)
+Academic Year: 2026–2027
+Project Title: HUMAN-IN-THE-LOOP EXPLAINABLE GRAPH NEURAL NETWORK FOR FINANCIAL FRAUD DETECTION
+
+Deliverable Files:
+1. Final Repaired Report:
+   D:\Projects\HITL-XGNN-Fraud-Detection\BCSE497J_Project1_Report_Kahlar_Bhandary_23BCE1442_REVISED.docx
+   (File size: 1,591,816 bytes, 3 sections, 276 paragraphs, 18 tables, 9 high-res figures)
+2. Repair Audit Documentation:
+   D:\Projects\HITL-XGNN-Fraud-Detection\BCSE497J_Report_Repair_Audit.txt
+
+--------------------------------------------------------------------------------
+1. IDENTIFIED SOURCE DOCUMENTS & MODIFICATION TIMES
+--------------------------------------------------------------------------------
+• Primary Humanized Source Paper:
+  - Path: D:\Projects\HITL-XGNN-Fraud-Detection\23BCE1442_1819_DA3_ResearchPaper.docx
+  - File Size: 74,538 bytes | Modification Time: 03-10-2026 17:52:30
+  - Content: Contains the author's previously humanized wording across Abstract,
+    Chapters 1–6, Discussion, Limitations, Conclusion, and 11 tabulated result tables.
+• Backup Scientific Reference (Equations & Technical Integrity):
+  - Path: D:\Projects\HITL-XGNN-Fraud-Detection\DA3_Research_Paper_HITL_XGNN_Fraud_Detection.docx
+  - File Size: 63,105 bytes | Modification Time: 29-09-2026 11:59:43
+  - Content: Clean LaTeX-to-Unicode mathematical formulations used to restore the
+    clean inductive GraphSAGE formula and avoid informal inline editing notes.
+• Official University Report Template Reference:
+  - Path: C:\Users\User\Downloads\Summer Internship Report Template (3).docx
+  - File Size: 130,273 bytes | Modification Time: 12-10-2026 12:15:58
+  - Content: Official VIT Chennai SCOPE template specifying page setup (1-inch margins,
+    Times New Roman typography, 1.5 line spacing, justified paragraphs), front matter
+    hierarchy (Declaration, Certificate, Acknowledgement, Table of Contents, Lists of
+    Tables/Figures/Abbreviations), and authentic high-resolution institutional seal.
+• Empirical Visual Analytics & Evaluation Plots:
+  - data/processed/experiments/exp01_pr_curves.png
+  - data/processed/experiments/exp02_pr_curves.png
+  - data/processed/experiments/exp03_feature_ablation.png
+  - data/processed/experiments/exp04_loss_comparison.png
+  - data/processed/experiments/exp05_fidelity_plus.png
+  - data/processed/experiments/exp05_explanations/subgraph_TP_96925342.png
+  - data/processed/experiments/exp06_f1_by_timestep.png
+  - data/processed/experiments/exp07_f1_vs_feedback_budget.png
+
+--------------------------------------------------------------------------------
+2. DIAGNOSIS OF DEFECTS IN PREVIOUS REPORT
+--------------------------------------------------------------------------------
+Root Cause Analysis of Previous Output:
+1. Abstract Displacement / Empty Section:
+   - In the prior script, paragraphs from the source file were appended using
+     `doc._body._element.append(new_p_elm)` rather than adding paragraphs in-place.
+     In Word XML, appending directly to `_body._element` placed elements after the
+     body section properties, causing all copied body paragraphs to detach from
+     their section headers and stack at the very end of the document.
+   - Consequently, the "ABSTRACT" page header was followed by an empty paragraph,
+     leaving the abstract visually blank on page xi.
+2. Table Displacement / Detached Captions:
+   - Tables appended via `_body._element.append(new_tbl_elm)` were similarly
+     relocated to the end of the file, leaving table captions in Chapters 2, 3, 4,
+     and 5 followed immediately by next-level section headers without data rows.
+3. Solution Implemented:
+   - Engineered strict sequential XML insertion using in-place paragraph element
+     transplantation and preceding-sibling table insertion (`addprevious`).
+   - Every paragraph and table now appears in exact sequential order immediately
+     below its corresponding heading and caption.
+
+--------------------------------------------------------------------------------
+3. AUDIT OF RESTORED SECTIONS & TABLES
+--------------------------------------------------------------------------------
+[RESTORED] ABSTRACT & KEYWORDS (Page xi):
+• Status: 100% Restored verbatim from 23BCE1442_1819_DA3_ResearchPaper.docx (P12, P14, P16, P18).
+• Content:
+  - Paragraph 1: Operational challenges on public blockchains (class imbalance, anonymity,
+    unlabelled entities, concept drift, and regulatory compliance).
+  - Paragraph 2: Empirical summary on the Elliptic Bitcoin benchmark (GraphSAGE mean aggregation,
+    Focal Loss stabilization against 9.25:1 imbalance, GNNExplainer faithfulness and latency).
+  - Paragraph 3: Macro-shock performance trajectory during darknet shutdowns, tabular baseline
+    comparisons, and +6.29% active learning sample-efficiency gain at 20% budget.
+  - Paragraph 4: Human-in-the-Loop decision support, interactive Cytoscape 2-hop exploration,
+    and mitigation of analyst alert fatigue.
+  - Keywords: Human-in-the-Loop (HITL), Explainable AI (XAI), Graph Neural Networks (GNN),
+    Financial Fraud Detection, Anti-Money Laundering (AML), Bitcoin Blockchain, Interactive
+    Decision Support, GNNExplainer, Temporal Concept Drift, Human-Computer Interaction (HCI).
+
+[RESTORED] TABLE 2.1: Comprehensive Literature Comparison Matrix (Chapter 2, Page 12):
+• Status: 100% Restored directly below caption.
+• Rows: 8 rows, 7 columns comparing Weber et al. (2019), Hamilton et al. (2017), Lin et al. (2017),
+  Ying et al. (2019), Veličković et al. (2018), Settles (2009), and Proposed HITL-XGNN.
+• Values: All methodologies, topologies, XAI methods, HITL active learning, and limitations restored.
+
+[RESTORED] TABLE 3.1: Critical Methodological Invariant: Isolation of Leakage (Chapter 3, Page 16):
+• Status: 100% Restored directly below caption.
+• Content: Methodological protocol for TrainOnlyScaler (mean μ_train and standard deviation σ_train
+  calculated strictly on training timesteps t ∈ [1, 34] with zero exposure of validation/testing nodes).
+
+[RESTORED] TABLE 4.1: FastAPI REST Service Endpoints and Latency Budgets (Chapter 4, Page 29):
+• Status: 100% Restored directly below caption.
+• Rows: 9 rows, 5 columns documenting /api/v1/health, /transactions, /transactions/{id},
+  /graph/{id}/subgraph, /explain/{id}, /hitl/feedback, /hitl/queue, /analytics/metrics with latency budgets.
+
+[RESTORED] TABLE 4.2: HCI Safeguard: Automation Bias Mitigation (Chapter 4, Page 27):
+• Status: 100% Restored directly below caption.
+• Content: 4-part cognitive forcing function (subgraph inspection, fidelity metrics, structured
+  rationale requirement, analyst confidence rating).
+
+[RESTORED] TABLE 5.1: EXP-01 Tabular Baseline Benchmark Results (Chapter 5, Page 31):
+• Status: 100% Restored directly below caption + Figure 5.1 (PR curves).
+• Rows: XGBoost (F1 = 0.7223, PR-AUC = 0.6712, τ* = 0.9014), LightGBM (F1 = 0.7179, PR-AUC = 0.6692),
+  Random Forest (F1 = 0.7061, PR-AUC = 0.6662), MLP (F1 = 0.5714, PR-AUC = 0.5321).
+
+[RESTORED] TABLE 5.2: EXP-02 Graph Neural Network Architectural Comparison (Chapter 5, Page 33):
+• Status: 100% Restored directly below caption + Figure 5.2 (GNN PR curves).
+• Rows: GraphSAGE (Test F1 = 0.5175, Val PR-AUC = 0.7966, τ* = 0.5517), GAT (Test F1 = 0.4097),
+  GCN (Test F1 = 0.3067).
+
+[RESTORED] TABLE 5.3: EXP-03 Feature Space Ablation Benchmark Results (Chapter 5, Page 35):
+• Status: 100% Restored directly below caption + Figure 5.3 (Feature ablation plot).
+• Rows: original_all (165 feats, F1 = 0.5139), combined (170 feats, F1 = 0.4197),
+  original_local (93 feats, F1 = 0.3780), engineered (5 feats, F1 = 0.1804).
+
+[RESTORED] TABLE 5.4: EXP-04 Loss Function Optimization Benchmark Results (Chapter 5, Page 37):
+• Status: 100% Restored directly below caption + Figure 5.4 (Loss comparison plot).
+• Rows: Focal Loss (α = 0.25, γ = 2.0, F1 = 0.5175), Standard CE (F1 = 0.4888),
+  Weighted CE (w = 7.6349, F1 = 0.4571, precision collapse to 0.3340).
+
+[RESTORED] TABLE 5.5: EXP-05 Post-Hoc Explainability Benchmark (Chapter 5, Page 39):
+• Status: 100% Restored directly below caption + Figures 5.5 and 5.6 (Fidelity & Subgraph).
+• Rows: GNNExplainer (Fid⁺ = 0.1470, Fid⁻ = 0.0069, Edge Sparsity = 0.6842, Feature Sparsity = 0.7333,
+  Mean Latency = 292.25 ms, p95 Latency = 378.99 ms), GAT Attention, Random Baseline.
+
+[RESTORED] TABLE 5.6: EXP-06 Out-of-Time Performance Trajectory (Chapter 5, Page 42):
+• Status: 100% Restored directly below caption + Figure 5.7 (Timestep drift plot).
+• Rows: Complete 10 test timesteps t = 40 to 49, documenting Darknet marketplace shutdown shock
+  at t ∈ [43, 46] where illicit prevalence dropped to 0.28% and topological F1 collapsed to 0.0000.
+
+[RESTORED] TABLE 5.7: EXP-07 Human-in-the-Loop Active Learning Benchmark (Chapter 5, Page 45):
+• Status: 100% Restored directly below caption + Figure 5.8 (Active learning budget curves).
+• Rows: Base GraphSAGE (0% budget, F1 = 0.5175), Random Sampling at 5%, 10%, 20%,
+  Uncertainty Sampling at 5%, 10%, 20% (F1 = 0.5030 vs 0.4401, +6.29% sample-efficiency gain).
+
+--------------------------------------------------------------------------------
+4. NEWLY AUTHORED VS REUSED HUMANIZED MATERIAL
+--------------------------------------------------------------------------------
+• Reused Humanized Content (100% Verbatim from 23BCE1442_1819_DA3_ResearchPaper.docx):
+  - Abstract & Keywords
+  - Chapter 1 (Introduction, Background, Forensic Trilemma, HCI Imperative, Key Contributions)
+  - Chapter 2 (Research Objectives, Literature Review sections 2.1 to 2.5)
+  - Chapter 3 (Dataset formalization, Features, Temporal split, Loss optimization, XAI formulation, Active Learning)
+  - Chapter 4 (System architecture, Microservices, HCI design workflows, REST API)
+  - Chapter 5 (EXP-01 to EXP-07 analytical descriptions, empirical interpretations, and tables)
+  - Chapter 6 (Discussion, Human-AI teaming, Bias mitigation, Enterprise hybrid strategy, Limitations, Conclusion)
+  - References (Citations [1] through [13])
+  - Appendix A (Deterministic seed governance, Model registry, Containerization, Automated test suite)
+• Newly Authored / Formatting Adaptations:
+  - University Front Matter conforming to VIT SCOPE requirements:
+    • Declaration page tailored specifically to candidate Kahlar Bhandary (23BCE1442).
+    • Certificate page listing Guide Dr. Malathi G, HoD Dr. J. Prassanna, and Examiners.
+    • Acknowledgement structured according to SCOPE institutional hierarchy.
+    • Complete Table of Contents, List of Tables, List of Figures, and List of Abbreviations.
+  - Section 6.6 & Appendix C: Individual Project Role & Task Allocation summary documenting
+    the specific modules authored by Kahlar Bhandary (GraphSAGE formulation, Focal Loss optimization,
+    GNNExplainer fidelity benchmarks, active learning triage buffer, FastAPI/React integration).
+  - GraphSAGE Mathematical Formulation in Section 3.4: Replaced informal draft note with
+    exact mathematical equation from backup reference paper.
+
+--------------------------------------------------------------------------------
+5. IDENTITY & SANITIZATION AUDIT (100% PASS)
+--------------------------------------------------------------------------------
+• Outdated Teammate Name "Medarametla": 0 occurrences
+• Outdated Teammate Name "Sudeep": 0 occurrences
+• Outdated Teammate RegNo "23BCE1819": 0 occurrences
+• Outdated Guide Name "Anita": 0 occurrences
+• Outdated Guide Name "Christaline": 0 occurrences
+• Informal draft tag "Batsava": 0 occurrences
+• Author Name "Kahlar Bhandary": 4 occurrences
+• Author Register Number "23BCE1442": 7 occurrences
+• Teammate Name "Udayan Manna": 3 occurrences
+• Teammate Register Number "23BCE1015": 4 occurrences
+• Project Guide "Dr. Malathi G": 4 occurrences
+• Institution "Vellore Institute of Technology": 8 occurrences
+• School "School of Computer Science and Engineering": 8 occurrences
+• Academic Year "2026–2027": 2 occurrences
+• Course Code "BCSE497J": 2 occurrences
+
+--------------------------------------------------------------------------------
+6. TECHNICAL & SCIENTIFIC INVARIANT AUDIT (100% PASS)
+--------------------------------------------------------------------------------
+• Total transaction nodes: 203,769 (VERIFIED)
+• Total directed edges: 234,355 (VERIFIED)
+• Total chronological timesteps: 49 (VERIFIED)
+• Train / Val / Test split: t ∈ [1, 34] / t ∈ [35, 39] / t ∈ [40, 49] (VERIFIED)
+• XGBoost baseline threshold: τ* = 0.9014 (VERIFIED)
+• Active GraphSAGE threshold: τ* = 0.5517 (VERIFIED)
+• XGBoost Test F1 = 0.7223, PR-AUC = 0.6712 (VERIFIED)
+• GraphSAGE Test F1 = 0.5175, Val PR-AUC = 0.7966 (VERIFIED)
+• GNNExplainer Fidelity⁺ = 0.1470, Fidelity⁻ = 0.0069, Latency = 292.25 ms (VERIFIED)
+• HITL Uncertainty 20% F1 = 0.5030 vs Random 20% F1 = 0.4401 (+6.29% gain) (VERIFIED)
+• No claim that GraphSAGE outperforms XGBoost overall (VERIFIED)
+• Simulated oracle clearly distinguished from real human analyst participation (VERIFIED)
+• No unfounded causal claims regarding temporal concept drift (VERIFIED)
+
+--------------------------------------------------------------------------------
+7. ACTIONS REQUIRING USER ATTENTION BEFORE PRINTING
+--------------------------------------------------------------------------------
+1. Signatures:
+   - Sign above your printed name on the Declaration Page (Page iii).
+   - Have Guide Dr. Malathi G and HoD Dr. J. Prassanna sign the Certificate Page (Page iv).
+   - Leave Examiner I and II lines blank for viva voce examination.
+2. Word Pagination Refresh:
+   - When opening BCSE497J_Project1_Report_Kahlar_Bhandary_23BCE1442_REVISED.docx in Word,
+     press "Ctrl + A" followed by "F9" to synchronize TOC page numbers with your local printer.
+3. Plagiarism Receipt:
+   - Append the official Turnitin/Urkund similarity certificate after the Certificate page
+     if mandated by your guide.
+================================================================================
+FINAL VERDICT: FULLY REPAIRED, VERIFIED, AND SUBMISSION-READY
+================================================================================

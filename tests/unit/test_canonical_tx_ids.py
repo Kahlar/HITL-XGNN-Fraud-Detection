@@ -134,3 +134,69 @@ async def test_nonexistent_and_invalid_numeric_indices_return_404(empty_db_api_c
 
     detail_res = await empty_db_api_client.get("/api/v1/transactions/1618")
     assert detail_res.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_search_canonical_tx_10487903_variations(empty_db_api_client: httpx.AsyncClient):
+    """
+    Verifies searching by full ID (10487903), partial ID (1048), cross-timestep (230425980),
+    empty search, and non-existent IDs.
+    """
+    # 1. Full search without specifying timestep
+    res_full = await empty_db_api_client.get("/api/v1/transactions?search=10487903")
+    assert res_full.status_code == 200
+    data_full = res_full.json()
+    assert data_full["total"] >= 1
+    assert any(item["tx_id"] == "10487903" for item in data_full["items"])
+
+    # 2. Partial search (1048)
+    res_partial = await empty_db_api_client.get("/api/v1/transactions?search=1048")
+    assert res_partial.status_code == 200
+    data_partial = res_partial.json()
+    assert data_partial["total"] >= 1
+    assert any("1048" in item["tx_id"] for item in data_partial["items"])
+
+    # 3. Cross-timestep search (230425980 in timestep 1 when timestep param is omitted)
+    res_cross = await empty_db_api_client.get("/api/v1/transactions?search=230425980")
+    assert res_cross.status_code == 200
+    data_cross = res_cross.json()
+    assert data_cross["total"] >= 1
+    assert any(item["tx_id"] == "230425980" for item in data_cross["items"])
+
+    # 4. Non-existent transaction search
+    res_none = await empty_db_api_client.get("/api/v1/transactions?search=nonexistent_999999999")
+    assert res_none.status_code == 200
+    data_none = res_none.json()
+    assert data_none["total"] == 0
+    assert len(data_none["items"]) == 0
+
+
+@pytest.mark.asyncio
+async def test_canonical_10487903_xai_fidelity_and_benchmark_summary(empty_db_api_client: httpx.AsyncClient):
+    """
+    Verifies that explain endpoint returns non-null instance fidelity and canonical EXP-05 benchmark summary.
+    """
+    # 1. Explanation on canonical 10487903
+    res = await empty_db_api_client.get("/api/v1/explain/10487903?timestep=40")
+    assert res.status_code == 200
+    expl = res.json()
+    assert expl["tx_id"] == "10487903"
+    assert expl["fidelity_plus"] is not None
+    assert isinstance(expl["fidelity_plus"], float)
+    assert expl["fidelity_minus"] is not None
+    assert isinstance(expl["fidelity_minus"], float)
+    assert expl["edge_sparsity"] is not None
+    assert expl["feature_sparsity"] is not None
+    assert expl["benchmark_summary"] is not None
+    assert "gnn_explainer" in expl["benchmark_summary"]["overall_fidelity"]
+
+    # 2. Benchmark summary endpoint
+    bmk_res = await empty_db_api_client.get("/api/v1/explain/benchmark/summary")
+    assert bmk_res.status_code == 200
+    bmk = bmk_res.json()
+    assert "overall_fidelity" in bmk
+    assert "gnn_explainer" in bmk["overall_fidelity"]
+    assert "gat_attention" in bmk["overall_fidelity"]
+    assert "random" in bmk["overall_fidelity"]
+    assert bmk["overall_fidelity"]["gnn_explainer"]["mean_fidelity_plus"] == 0.147
+    assert bmk["overall_fidelity"]["gnn_explainer"]["mean_fidelity_minus"] == 0.0069

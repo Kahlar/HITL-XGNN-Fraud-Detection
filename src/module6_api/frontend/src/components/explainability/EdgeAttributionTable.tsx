@@ -27,43 +27,51 @@ export const EdgeAttributionTable: React.FC<EdgeAttributionTableProps> = ({ edge
             </tr>
           </thead>
           <tbody>
-            {edges.map((edge) => {
-              const normPct = (edge.normalized_importance * 100).toFixed(1);
-              return (
-                <tr key={`${edge.source_tx_id}-${edge.target_tx_id}`}>
-                  <td style={{ fontWeight: 600, color: '#64748b' }}>#{edge.rank}</td>
-                  <td className="font-mono" style={{ color: '#38bdf8' }}>
-                    {edge.source_tx_id.slice(0, 10)}...
-                  </td>
-                  <td className="font-mono" style={{ color: '#cbd5e1' }}>
-                    {edge.target_tx_id.slice(0, 10)}...
-                  </td>
-                  <td style={{ fontWeight: 600 }}>{edge.raw_importance.toFixed(4)}</td>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div
-                        style={{
-                          flex: 1,
-                          height: '6px',
-                          backgroundColor: '#1e293b',
-                          borderRadius: '3px',
-                          overflow: 'hidden',
-                        }}
-                      >
+            {edges.length === 0 ? (
+              <tr>
+                <td colSpan={5} style={{ textAlign: 'center', color: '#64748b', padding: '24px 16px' }}>
+                  No connected payment flow edges in the 2-hop computational neighborhood.
+                </td>
+              </tr>
+            ) : (
+              edges.map((edge) => {
+                const normPct = (edge.normalized_importance * 100).toFixed(1);
+                return (
+                  <tr key={`${edge.source_tx_id}-${edge.target_tx_id}-${edge.rank}`}>
+                    <td style={{ fontWeight: 600, color: '#64748b' }}>#{edge.rank}</td>
+                    <td className="font-mono" style={{ color: '#38bdf8' }}>
+                      {edge.source_tx_id.length > 12 ? `${edge.source_tx_id.slice(0, 10)}...` : edge.source_tx_id}
+                    </td>
+                    <td className="font-mono" style={{ color: '#cbd5e1' }}>
+                      {edge.target_tx_id.length > 12 ? `${edge.target_tx_id.slice(0, 10)}...` : edge.target_tx_id}
+                    </td>
+                    <td style={{ fontWeight: 600 }}>{edge.raw_importance.toFixed(4)}</td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div
                           style={{
-                            width: `${normPct}%`,
-                            height: '100%',
-                            backgroundColor: '#f59e0b',
+                            flex: 1,
+                            height: '6px',
+                            backgroundColor: '#1e293b',
+                            borderRadius: '3px',
+                            overflow: 'hidden',
                           }}
-                        />
+                        >
+                          <div
+                            style={{
+                              width: `${normPct}%`,
+                              height: '100%',
+                              backgroundColor: '#f59e0b',
+                            }}
+                          />
+                        </div>
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8', width: '36px' }}>{normPct}%</span>
                       </div>
-                      <span style={{ fontSize: '0.75rem', color: '#94a3b8', width: '36px' }}>{normPct}%</span>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

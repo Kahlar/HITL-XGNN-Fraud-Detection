@@ -32,7 +32,7 @@ export const TriageQueueTable: React.FC<TriageQueueTableProps> = ({
         </thead>
         <tbody>
           {items.map((item, idx) => {
-            const prob = item.predicted_prob;
+            const prob = item.predicted_prob != null ? item.predicted_prob : 0.0;
             const probPct = (prob * 100).toFixed(1);
             return (
               <tr key={item.tx_id}>
@@ -71,17 +71,21 @@ export const TriageQueueTable: React.FC<TriageQueueTableProps> = ({
                   </div>
                 </td>
                 <td>
-                  <Badge type="risk" value={item.risk_level} />
+                  <Badge type="risk" value={item.risk_level || 'LOW'} />
                 </td>
                 <td>
-                  <span style={{ color: '#cbd5e1' }}>{item.uncertainty_score.toFixed(3)}</span>
+                  <span style={{ color: '#cbd5e1' }}>
+                    {item.uncertainty_score != null ? item.uncertainty_score.toFixed(3) : '-'}
+                  </span>
                 </td>
                 <td>
-                  <span style={{ color: '#cbd5e1' }}>{item.entropy.toFixed(3)} bits</span>
+                  <span style={{ color: '#cbd5e1' }}>
+                    {item.entropy != null ? `${item.entropy.toFixed(3)} bits` : '-'}
+                  </span>
                 </td>
                 <td>
                   <span style={{ fontWeight: 700, color: '#fbbf24' }}>
-                    {(item.priority_score * 100).toFixed(1)}%
+                    {item.priority_score != null ? `${(item.priority_score * 100).toFixed(1)}%` : '-'}
                   </span>
                 </td>
                 <td style={{ textAlign: 'right' }}>

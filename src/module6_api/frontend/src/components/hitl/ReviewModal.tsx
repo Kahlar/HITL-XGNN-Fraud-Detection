@@ -7,8 +7,8 @@ import { Badge } from '../common/Badge';
 interface ReviewModalProps {
   txId: string;
   timestep?: number;
-  predictedProb?: number;
-  riskLevel?: string;
+  predictedProb?: number | null;
+  riskLevel?: string | null;
   isOpen: boolean;
   onClose: () => void;
   onSuccess: (feedback: FeedbackResponse) => void;
@@ -125,8 +125,10 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
             <div style={{ textAlign: 'right' }}>
               <div style={{ color: '#64748b', fontSize: '0.7rem' }}>MODEL RISK / PROB</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Badge type="risk" value={riskLevel} />
-                <span style={{ fontWeight: 600 }}>{(predictedProb * 100).toFixed(1)}%</span>
+                <Badge type="risk" value={riskLevel || 'LOW'} />
+                <span style={{ fontWeight: 600 }}>
+                  {predictedProb != null ? `${(predictedProb * 100).toFixed(1)}%` : '-'}
+                </span>
               </div>
             </div>
           </div>

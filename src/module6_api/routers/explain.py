@@ -6,12 +6,28 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from src.common.logger import get_logger
 from src.module3_graph_builder import get_graph_tx_ids
 from src.module6_api.dependencies import get_graph_service, get_xai_service
-from src.module6_api.schemas.explanation import ExplanationResponse
+from src.module6_api.schemas.explanation import ExplanationResponse, FidelityBenchmarkSummaryResponse
 from src.module6_api.services.graph_service import GraphService
 from src.module6_api.services.xai_service import XAIService
 
 logger = get_logger("Module6.Router.Explain")
 router = APIRouter(prefix="/explain", tags=["Explainability Engine"])
+
+
+@router.get(
+    "/benchmark/summary",
+    response_model=FidelityBenchmarkSummaryResponse,
+    summary="Get canonical EXP-05 aggregate fidelity and latency benchmark metrics",
+)
+async def get_fidelity_benchmark_summary(
+    xai_service: XAIService = Depends(get_xai_service),
+) -> FidelityBenchmarkSummaryResponse:
+    """
+    Returns canonical EXP-05 quantitative faithfulness metrics comparing GNNExplainer,
+    GAT Attention, and Random Baselines across the test evaluation set.
+    """
+    summary_data = xai_service.get_benchmark_summary()
+    return FidelityBenchmarkSummaryResponse(**summary_data)
 
 
 @router.get(

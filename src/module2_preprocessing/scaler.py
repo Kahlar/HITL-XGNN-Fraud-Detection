@@ -5,7 +5,6 @@ from typing import List, Optional, Union
 import joblib
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import RobustScaler, StandardScaler
 
 from src.common.config import default_config
 from src.common.logger import get_logger
@@ -22,8 +21,10 @@ class TrainOnlyScaler:
     def __init__(self, scaler_type: str = "robust", output_dir: Optional[Union[str, Path]] = None):
         self.scaler_type = scaler_type.lower()
         if self.scaler_type == "robust":
+            from sklearn.preprocessing import RobustScaler
             self.scaler = RobustScaler()
         elif self.scaler_type == "standard":
+            from sklearn.preprocessing import StandardScaler
             self.scaler = StandardScaler()
         else:
             raise ValueError(f"Unknown scaler type '{scaler_type}'. Expected 'robust' or 'standard'.")

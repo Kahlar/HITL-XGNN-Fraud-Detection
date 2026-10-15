@@ -40,6 +40,98 @@ export interface TransactionDetailResponse extends TransactionResponse {
   feedback_count: number;
   outgoing_edge_count: number;
   incoming_edge_count: number;
+  model_version?: string;
+  architecture?: string;
+  decision_threshold?: number;
+  decision_rule?: string;
+  ground_truth_status?: 'known' | 'unavailable';
+  outcome_category?: 'TRUE_POSITIVE' | 'FALSE_POSITIVE' | 'TRUE_NEGATIVE' | 'FALSE_NEGATIVE' | 'NOT_EVALUABLE';
+  explanation_status?: 'AVAILABLE' | 'NOT_GENERATED';
+  explanation_method?: string;
+}
+
+export interface GroupEvaluationResponse {
+  scope: string;
+  timestep?: number;
+  total_transactions: number;
+  labeled_count: number;
+  unlabeled_count: number;
+  illicit_count: number;
+  licit_count: number;
+  decision_threshold: number;
+  f1_score?: number;
+  pr_auc?: number;
+  precision?: number;
+  recall?: number;
+  true_positives: number;
+  false_positives: number;
+  true_negatives: number;
+  false_negatives: number;
+  status: string;
+  notes: string;
+}
+
+export interface ThresholdPolicyResponse {
+  active_model: string;
+  architecture: string;
+  calibrated_threshold: number;
+  calibration_method: string;
+  calibration_split: string;
+  grid_specification: {
+    min_threshold: number;
+    max_threshold: number;
+    num_points: number;
+    step_size?: number;
+  };
+  validation_metrics: {
+    f1_illicit: number;
+    precision: number;
+    recall: number;
+  };
+  test_metrics: {
+    f1_illicit: number;
+    pr_auc: number;
+    precision: number;
+    recall: number;
+    roc_auc?: number;
+  };
+  comparison_thresholds: Record<string, number>;
+  decision_rules: Record<string, string>;
+}
+
+export interface ModelBenchmarkItem {
+  name: string;
+  type: string;
+  is_graph: boolean;
+  features: string;
+  calibrated_threshold: number;
+  f1_illicit: number;
+  pr_auc: number;
+  precision: number;
+  recall: number;
+  roc_auc: number;
+  runtime_seconds: number;
+  parameters?: number;
+}
+
+export interface ModelValidationResponse {
+  timestamp_utc: string;
+  train_timesteps: number[];
+  validation_timesteps: number[];
+  test_timesteps: number[];
+  zero_leakage_policy: string;
+  models: ModelBenchmarkItem[];
+  verification_evidence: {
+    verification_status: string;
+    unit_test_suite: string;
+    checkpoints: Record<string, { path: string; exists: boolean; size_bytes: number }>;
+    dataset_invariants: {
+      zero_orphan_nodes: boolean;
+      zero_self_loops: boolean;
+      intra_timestep_edges_pct: number;
+      cross_timestep_edges: number;
+    };
+  };
 }
 
 export interface GraphNode {
@@ -95,6 +187,30 @@ export interface EdgeAttributionItem {
   rank: number;
 }
 
+export interface FidelityBenchmarkMethod {
+  mean_fidelity_plus: number;
+  mean_fidelity_minus: number;
+  median_fidelity_plus?: number;
+  median_fidelity_minus?: number;
+  std_fidelity_plus?: number;
+  std_fidelity_minus?: number;
+}
+
+export interface FidelityBenchmarkSummaryResponse {
+  overall_fidelity: Record<string, FidelityBenchmarkMethod>;
+  category_fidelity?: Record<string, { mean_fid_plus: number; mean_fid_minus: number; count: number }>;
+  regime_fidelity?: Record<string, { mean_fid_plus: number; mean_fid_minus: number }>;
+  latency_profile?: {
+    num_samples: number;
+    mean_latency_ms: number;
+    median_latency_ms: number;
+    p95_latency_ms: number;
+    min_latency_ms: number;
+    max_latency_ms: number;
+    total_duration_seconds: number;
+  };
+}
+
 export interface ExplanationResponse {
   tx_id: string;
   timestep: number;
@@ -114,6 +230,7 @@ export interface ExplanationResponse {
   top_features: FeatureAttributionItem[];
   top_edges: EdgeAttributionItem[];
   feature_summary: Record<string, any>;
+  benchmark_summary?: FidelityBenchmarkSummaryResponse;
 }
 
 export interface FeedbackSubmissionRequest {

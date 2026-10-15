@@ -30,3 +30,11 @@ class TransactionDetailResponse(TransactionResponse):
     feedback_count: int = 0
     outgoing_edge_count: int = 0
     incoming_edge_count: int = 0
+    model_version: str = "graphsage_hitl_uncertainty_20"
+    architecture: str = "GraphSAGE"
+    decision_threshold: float = 0.5517
+    decision_rule: str = "p >= 0.5517 -> Illicit (1); otherwise Licit (0)"
+    ground_truth_status: str = "known"
+    outcome_category: str = "NOT_EVALUABLE"
+    explanation_status: str = "NOT_GENERATED"
+    explanation_method: str = "GNNExplainer"

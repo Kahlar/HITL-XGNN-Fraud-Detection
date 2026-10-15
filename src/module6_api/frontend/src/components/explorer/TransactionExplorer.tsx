@@ -6,6 +6,7 @@ import { TransactionTable } from './TransactionTable';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorAlert } from '../common/ErrorAlert';
 import { EmptyState } from '../common/EmptyState';
+import { PredictionDetailPanel } from './PredictionDetailPanel';
 
 interface TransactionExplorerProps {
   onSelectTx: (txId: string) => void;
@@ -24,6 +25,7 @@ export const TransactionExplorer: React.FC<TransactionExplorerProps> = ({
   });
   const [searchId, setSearchId] = useState('');
   const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
+  const [inspectTx, setInspectTx] = useState<TransactionResponse | null>(null);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -55,6 +57,9 @@ export const TransactionExplorer: React.FC<TransactionExplorerProps> = ({
       setTransactions(res.items);
       setTotal(res.total);
       setTotalPages(res.total_pages || 1);
+      if (searchId.trim() && res.items.length === 1) {
+        setInspectTx(res.items[0]);
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to fetch transactions');
     } finally {
@@ -72,6 +77,7 @@ export const TransactionExplorer: React.FC<TransactionExplorerProps> = ({
 
   const handleReset = () => {
     setSearchId('');
+    setInspectTx(null);
     setFilters({ page: 1, page_size: 25 });
   };
 
@@ -94,6 +100,16 @@ export const TransactionExplorer: React.FC<TransactionExplorerProps> = ({
         onReset={handleReset}
       />
 
+      {inspectTx && (
+        <PredictionDetailPanel
+          tx={inspectTx}
+          currentSearchIds={transactions.map((t) => t.tx_id)}
+          onClose={() => setInspectTx(null)}
+          onNavigateTab={onNavigateTab}
+          onOpenReviewModal={onOpenReviewModal}
+        />
+      )}
+
       {loading ? (
         <LoadingSpinner message="Querying transaction graph..." />
       ) : error ? (
@@ -111,6 +127,7 @@ export const TransactionExplorer: React.FC<TransactionExplorerProps> = ({
           onSelectTx={onSelectTx}
           onNavigateTab={onNavigateTab}
           onOpenReviewModal={onOpenReviewModal}
+          onInspectTx={(selected) => setInspectTx(selected)}
         />
       )}
     </div>

@@ -68,10 +68,14 @@ async def submit_analyst_feedback(
             tx_id=submission.tx_id,
             timestep=40,
             ground_truth_label=-1,
-            triage_status="REVIEWED",
+            triage_status="ESCALATED" if submission.verdict == "ESCALATED" else "REVIEWED",
             is_triaged=True,
         )
         await tx_repo.create(db, tx)
+    else:
+        tx.triage_status = "ESCALATED" if submission.verdict == "ESCALATED" else "REVIEWED"
+        tx.is_triaged = True
+        await db.flush()
 
     now_utc = datetime.now(timezone.utc)
     # Create feedback model
@@ -124,6 +128,8 @@ async def get_triage_queue(
     """
     Returns prioritized review queue ranked by composite uncertainty, fraud risk, and graph diversity.
     """
+    reviewed_ids = await tx_repo.get_reviewed_tx_ids(db)
+
     # 1. Check database first
     db_items = await tx_repo.get_triage_queue(
         session=db,
@@ -149,6 +155,7 @@ async def get_triage_queue(
                 triage_status=tx.triage_status,
             )
             for tx in db_items
+            if tx.tx_id not in reviewed_ids
         ]
         risk_dist = {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
         for item in queue_items:
@@ -161,7 +168,7 @@ async def get_triage_queue(
             risk_distribution=risk_dist,
         )
 
-    # 2. On-demand triage scoring from graph artifacts
+    # 2. On-demand triage scoring from graph artifacts (excluding reviewed transactions)
     target_ts = timestep if timestep is not None else 40
     data = graph_service.loader.load_graph(target_ts)
     x = graph_service.loader.get_feature_matrix(data, config="original_all")
@@ -172,6 +179,10 @@ async def get_triage_queue(
     risk_dist = {"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
 
     for i in range(len(node_tx_ids)):
+        tx_id_str = str(node_tx_ids[i])
+        if tx_id_str in reviewed_ids:
+            continue  # Exclude already-reviewed transactions from the queue
+
         p = float(probs[i])
         triaged = inference_service.triage_router.triage_candidate(
             tx_id=node_tx_ids[i],

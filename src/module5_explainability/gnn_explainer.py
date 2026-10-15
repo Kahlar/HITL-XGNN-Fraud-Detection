@@ -188,6 +188,19 @@ class GNNExplainerEngine:
                 )
             )
 
+        # Evaluate instance-level faithfulness on this specific transaction
+        from src.module5_explainability.fidelity import FidelityEvaluator
+        fid_eval = FidelityEvaluator(model=self.model, device=self.device)
+        fid_results = fid_eval.evaluate_explanation_faithfulness(
+            data=data,
+            target_local_idx=target_local_idx,
+            edge_mask=edge_mask_raw,
+            feature_mask=feature_mask_raw,
+            method_name="gnn_explainer",
+            budget_ratios=[0.10],
+        )
+        primary_fid = fid_results[0] if fid_results else None
+
         latency_ms = round((time.perf_counter() - start_time) * 1000.0, 2)
 
         return TransactionExplanation(
@@ -207,5 +220,9 @@ class GNNExplainerEngine:
             top_features=[f.to_dict() for f in ranked_features],
             top_edges=[e.to_dict() for e in ranked_edges],
             feature_summary=feat_summary,
+            fidelity_plus=primary_fid.fidelity_plus if primary_fid else None,
+            fidelity_minus=primary_fid.fidelity_minus if primary_fid else None,
+            edge_sparsity=primary_fid.edge_sparsity if primary_fid else None,
+            feature_sparsity=primary_fid.feature_sparsity if primary_fid else None,
             generation_latency_ms=latency_ms,
         )
